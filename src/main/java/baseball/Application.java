@@ -9,7 +9,7 @@ import view.GameUI;
 
 public class Application {
     public static void main(String[] args) {
-        BaseballGame baseballGame = new BaseballGame();
+        BaseballGame baseballGame = BaseballGame.EMPTY;
         GameController gameController = new BaseballGameController(baseballGame);
 
         while (baseballGame.isOnGoing()) {
