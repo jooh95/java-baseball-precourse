@@ -1,11 +1,10 @@
 package baseball;
 
-import camp.nextstep.edu.missionutils.Console;
 import controller.BaseballGameController;
 import controller.GameController;
 import model.BaseballGame;
-import view.BaseballGameUI;
-import view.GameUI;
+import view.BaseballGameView;
+import view.GameView;
 
 public class Application {
     public static void main(String[] args) {
@@ -13,11 +12,10 @@ public class Application {
         GameController gameController = new BaseballGameController(baseballGame);
 
         while (baseballGame.isOnGoing()) {
-            GameUI gameUI = new BaseballGameUI(baseballGame); // model에 따른 view 반환
-            gameUI.show();
+            GameView gameView = new BaseballGameView(baseballGame); // model에 따른 view 반환
+            String keyInput = gameView.askKeyInput();
 
-            String playerInput = Console.readLine();
-            baseballGame = gameController.process(playerInput); // controller에서 model 반환
+            baseballGame = gameController.process(keyInput); // controller에서 model 반환
         }
     }
 }

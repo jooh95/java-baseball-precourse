@@ -10,9 +10,9 @@ public class BaseballGame {
     private int strike;
     private int ball;
 
-    public BaseballGame() {
-        this.strike = 0;
-        this.ball = 0;
+    private BaseballGame() {
+        strike = 0;
+        ball = 0;
     }
 
     public BaseballGame(List<Integer> answers, List<Integer> guesses) {
@@ -22,7 +22,15 @@ public class BaseballGame {
     }
 
     public boolean isOnGoing() {
-        return !Objects.equals(this.strike, STRIKE_OUT);
+        return !Objects.equals(strike, STRIKE_OUT);
+    }
+
+    public int getStrike() {
+        return strike;
+    }
+
+    public int getBall() {
+        return ball;
     }
 
     private void updateGameState(Integer randomNumber, Integer playerNumber) {
