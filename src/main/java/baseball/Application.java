@@ -1,24 +1,20 @@
 package baseball;
 
 import controller.BaseballGameController;
-import controller.GameController;
 import model.BaseballGame;
 import view.BaseballGameView;
-import view.GameView;
 
 public class Application {
     public static void main(String[] args) {
-        BaseballGame baseballGame = new BaseballGame();
+        BaseballGame baseballGame = BaseballGame.newGame();
 
         while (baseballGame.isContinue()) {
-            GameView gameView = new BaseballGameView(baseballGame); // model에 따른 view 반환
-            String keyInput = gameView.askKeyInput();
+            String keyInput = new BaseballGameView(baseballGame).askKeyInput(); // model에 따른 view 사용
 
-            GameController gameController = new BaseballGameController(baseballGame);
-            baseballGame = gameController.process(keyInput); // controller에서 model 반환
+            // controller에서 model 반환
+            baseballGame = new BaseballGameController(baseballGame).process(keyInput);
 
-            gameView = new BaseballGameView(baseballGame); // model에 따른 view 반환
-            gameView.printGameState();
+            new BaseballGameView(baseballGame).printGameState(); // model에 따른 view 사용
         }
     }
 }

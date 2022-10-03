@@ -19,7 +19,7 @@ public class BaseballGame {
     private final List<Integer> answers;
     private final List<Integer> guesses;
 
-    public BaseballGame() {
+    private BaseballGame() {
         strike = 0;
         ball = 0;
         answers = pickNumbers();
