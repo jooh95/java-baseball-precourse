@@ -29,9 +29,17 @@ public class BaseballGameController implements GameController {
     }
 
     private void validateWrongInput(String input) {
-        if (input.length() > MAX_STRIKE_COUNT) {
+        if (isLengthInRange(input) || isNotNumberic(input)) {
             throw new IllegalArgumentException();
         }
+    }
+
+    private static boolean isLengthInRange(String input) {
+        return input.length() > MAX_STRIKE_COUNT;
+    }
+
+    private static boolean isNotNumberic(String input) {
+        return !input.matches("\\d+");
     }
 
     private List<Integer> toList(String str) {
