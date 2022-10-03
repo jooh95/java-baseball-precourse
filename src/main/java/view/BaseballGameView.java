@@ -1,10 +1,16 @@
 package view;
 
-import camp.nextstep.edu.missionutils.Console;
+import static camp.nextstep.edu.missionutils.Console.readLine;
+
 import model.BaseballGame;
 
 public class BaseballGameView implements GameView {
-    private BaseballGame baseballGame;
+    public static class Key {
+        public static String NEW_GAME = "1";
+        public static String GAME_STOP = "2";
+    }
+
+    private final BaseballGame baseballGame;
 
     public BaseballGameView(BaseballGame baseballGame) {
         this.baseballGame = baseballGame;
@@ -12,32 +18,32 @@ public class BaseballGameView implements GameView {
 
     @Override
     public String askKeyInput() {
-        printGameState();
-
-        if (baseballGame.isOnGoing()) {
-            return askKeyInputForOnGoing();
+        if (baseballGame.isPlayerWin()) {
+            return askKeyInputForGameEnd();
         }
-        return askKeyInputForGameEnd();
+        return askKeyInputForOnGoing();
+    }
+
+    @Override
+    public void printGameState() {
+        StringBuilder gameStateStrBuilder = new StringBuilder();
+        setBallMessage(gameStateStrBuilder);
+        setStrikeMessage(gameStateStrBuilder);
+        setNothingMessage(gameStateStrBuilder);
+
+        System.out.println(gameStateStrBuilder);
     }
 
     private String askKeyInputForOnGoing() {
-        System.out.println("숫자를 입력해주세요 : ");
-        return Console.readLine();
+        System.out.print("숫자를 입력해주세요 : ");
+        return readLine();
     }
 
     private String askKeyInputForGameEnd() {
-        System.out.printf("%s개의 숫자를 모두 맞히셨습니다! 게임종료%n", BaseballGame.STRIKE_OUT);
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
-        return Console.readLine();
-    }
+        System.out.printf("%s개의 숫자를 모두 맞히셨습니다! 게임 종료\n", BaseballGame.MAX_STRIKE_COUNT);
+        System.out.printf("게임을 새로 시작하려면 %s, 종료하려면 %s를 입력하세요.\n", Key.NEW_GAME, Key.GAME_STOP);
 
-    private void printGameState() {
-        StringBuilder gameStateStrBuilder = new StringBuilder();
-
-        setBallMessage(gameStateStrBuilder);
-        setStrikeMessage(gameStateStrBuilder);
-
-        System.out.println(gameStateStrBuilder);
+        return readLine();
     }
 
     private void setBallMessage(StringBuilder gameStateStrBuilder) {
@@ -49,6 +55,12 @@ public class BaseballGameView implements GameView {
     private void setStrikeMessage(StringBuilder gameStateStrBuilder) {
         if (baseballGame.getStrike() > 0) {
             gameStateStrBuilder.append(String.format("%s스트라이크", baseballGame.getStrike()));
+        }
+    }
+
+    private void setNothingMessage(StringBuilder gameStateStrBuilder) {
+        if (baseballGame.isNothing()) {
+            gameStateStrBuilder.append("낫싱");
         }
     }
 }

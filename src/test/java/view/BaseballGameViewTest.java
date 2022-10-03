@@ -69,6 +69,6 @@ class BaseballGameViewTest {
     private BaseballGame arrangeBaseballGame(String answer, String guess) {
         List<Integer> answers = TestUtils.toList(answer);
         List<Integer> guesses = TestUtils.toList(guess);
-        return new BaseballGame(answers, guesses);
+        return BaseballGame.play(answers, guesses);
     }
 }
