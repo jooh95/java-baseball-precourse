@@ -10,8 +10,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public class BaseballGame {
-    public static final BaseballGame END = new BaseballGame(Collections.emptyList(),
-        Collections.emptyList());
+    public static final BaseballGame END = new BaseballGame(
+        Collections.emptyList(), Collections.emptyList());
     public static final int MAX_STRIKE_COUNT = 3;
 
     private int strike;
